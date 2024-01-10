@@ -1,0 +1,12 @@
+#connection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+  margin: auto;
+  text-align: center;
+}
+
+.forgotPass {
+  color: black;
+}

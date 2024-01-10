@@ -6,20 +6,20 @@ let liste = [];
 gallery.innerHTML = "";
 
 /*fonction pour récupérer les projets*/
-async function init() {
+async function initWorks() {
   const response = await fetch("http://localhost:5678/api/works");
   return await response.json();
 }
-init();
+initWorks();
 
 /*Affichage des nouveaux projets dans le dom*/
-async function displayProjects() {
-  const card = await init();
+async function displayWorks() {
+  const card = await initWorks();
   card.map((card) => {
     createCard(card);
   });
 }
-displayProjects();
+displayWorks();
 
 function createCard(card) {
   const figure = document.createElement("figure");
@@ -54,7 +54,7 @@ createCategorysButtons();
 
 /* Fonction pour filtrer les projets par catégoie*/
 async function filterCategory() {
-  const project = await init();
+  const project = await initWorks();
   console.log(project);
   const buttons = document.querySelectorAll(".filter button");
   console.log(buttons);
@@ -70,7 +70,7 @@ async function filterCategory() {
           createCard(card);
         });
       } else {
-        displayProjects();
+        displayWorks();
       }
     });
   });

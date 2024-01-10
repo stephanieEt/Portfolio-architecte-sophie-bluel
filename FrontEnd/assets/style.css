@@ -173,6 +173,7 @@ nav ul {
 nav li {
   padding: 0 10px;
   font-size: 1.2em;
+  cursor: pointer;
 }
 
 li:hover {
@@ -205,6 +206,8 @@ li:hover {
   text-align: center;
   margin-bottom: 1em;
 }
+
+/*Ajout des filtres pour afficher les travaux par catégorie*/
 .filter {
   text-align: center;
   display: flex;
@@ -239,26 +242,32 @@ li:hover {
   width: 50%;
   margin: auto;
 }
-#contact > * {
+#contact > *,
+#connection > * {
   text-align: center;
 }
-#contact h2 {
+#contact h2,
+#connection h2 {
   margin-bottom: 20px;
 }
-#contact form {
+#contact form,
+#connection form {
   text-align: left;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
 }
 
-#contact input {
+#contact input,
+#connection input {
   height: 50px;
   font-size: 1.2em;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+
+#contact label,
+#connection label {
   margin: 2em 0 1em 0;
 }
 #contact textarea {
