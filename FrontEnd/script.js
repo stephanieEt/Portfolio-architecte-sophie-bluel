@@ -1,16 +1,13 @@
 const gallery = document.querySelector(".gallery");
 const filter = document.querySelector(".filter");
-let liste = [];
-
-/*mettre à jour l'affichage*/
-gallery.innerHTML = "";
+let dataWorks = null;
 
 /*fonction pour récupérer les projets*/
 async function initWorks() {
   const response = await fetch("http://localhost:5678/api/works");
-  return await response.json();
+  dataWorks = await response.json();
+  return dataWorks;
 }
-initWorks();
 
 /*Affichage des nouveaux projets dans le dom*/
 async function displayWorks() {
@@ -18,6 +15,7 @@ async function displayWorks() {
   card.map((card) => {
     createCard(card);
   });
+  createCategorysButtons();
 }
 displayWorks();
 
@@ -33,12 +31,10 @@ function createCard(card) {
 }
 
 /*Fonction pour récupérer les catégories*/
-
 async function getCategorys() {
   const response = await fetch("http://localhost:5678/api/categories");
   return await response.json();
 }
-getCategorys();
 
 /*Affichage des catégories dans le dom*/
 async function createCategorysButtons() {
@@ -49,13 +45,11 @@ async function createCategorysButtons() {
     btn.id = element.id;
     filter.appendChild(btn);
   });
+  filterCategory();
 }
-createCategorysButtons();
 
 /* Fonction pour filtrer les projets par catégoie*/
 async function filterCategory() {
-  const project = await initWorks();
-  console.log(project);
   const buttons = document.querySelectorAll(".filter button");
   console.log(buttons);
   buttons.forEach((button) => {
@@ -63,16 +57,17 @@ async function filterCategory() {
       btnId = e.target.id;
       gallery.innerHTML = "";
       if (btnId !== "0") {
-        const differentsCategory = project.filter((card) => {
+        const differentsCategory = dataWorks.filter((card) => {
           return card.categoryId == btnId;
         });
-        differentsCategory.forEach((card) => {
+        differentsCategory.map((card) => {
           createCard(card);
         });
       } else {
-        displayWorks();
+        dataWorks.map((card) => {
+          createCard(card);
+        });
       }
     });
   });
 }
-filterCategory();

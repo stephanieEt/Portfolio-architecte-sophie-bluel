@@ -84,6 +84,8 @@ time,
 mark,
 audio,
 video {
+  text-decoration: none;
+  color: inherit;
   margin: 0;
   padding: 0;
   border: 0;
@@ -140,6 +142,7 @@ header {
   justify-content: space-between;
   margin: 50px 0;
 }
+
 section {
   margin: 50px 0;
 }
@@ -209,10 +212,8 @@ li:hover {
 
 /*Ajout des filtres pour afficher les travaux par catégorie*/
 .filter {
-  text-align: center;
   display: flex;
   justify-content: center;
-  flex-direction: row;
   gap: 10px;
   padding-bottom: 50px;
   padding-top: 10px;
@@ -226,6 +227,14 @@ li:hover {
   font-size: 16px;
   color: #1d6154;
   height: 37px;
+  min-width: 100px;
+  padding: 9px 15px;
+  background-color: #fffef8;
+}
+#portfolio .filter button:hover {
+  background-color: #1d6154;
+  cursor: pointer;
+  color: white;
 }
 
 .gallery {
