@@ -3,21 +3,20 @@ const filter = document.querySelector(".filter");
 let dataWorks = null;
 
 /*fonction pour récupérer les projets*/
-async function initWorks() {
+async function getWorks() {
   const response = await fetch("http://localhost:5678/api/works");
   dataWorks = await response.json();
   return dataWorks;
 }
 
 /*Affichage des nouveaux projets dans le dom*/
-async function displayWorks() {
-  const card = await initWorks();
+async function main() {
+  const card = await getWorks();
   card.map((card) => {
     createCard(card);
   });
   createCategorysButtons();
 }
-displayWorks();
 
 function createCard(card) {
   const figure = document.createElement("figure");
@@ -45,11 +44,11 @@ async function createCategorysButtons() {
     btn.id = element.id;
     filter.appendChild(btn);
   });
-  filterCategory();
+  filterByCategory();
 }
 
 /* Fonction pour filtrer les projets par catégoie*/
-async function filterCategory() {
+async function filterByCategory() {
   const buttons = document.querySelectorAll(".filter button");
   console.log(buttons);
   buttons.forEach((button) => {
@@ -71,3 +70,5 @@ async function filterCategory() {
     });
   });
 }
+
+main();

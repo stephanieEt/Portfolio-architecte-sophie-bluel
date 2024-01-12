@@ -2,6 +2,7 @@ const form = document.querySelector("form");
 const email = document.querySelector("form #email");
 const password = document.querySelector("form #pass");
 const messageError = document.querySelector("#connection p");
+let tokenId;
 
 /*Fonction pour récupérer les users*/
 
@@ -24,12 +25,13 @@ async function recoverUsers(email, password) {
       }
     })
     .then((data) => {
-      // mettre la logique de sauvegarde de token
-      console.log(data.token);
+      tokenId = data.token;
+      window.localStorage.setItem("token", tokenId);
+      window.location.href = "index.html";
     })
     .catch((error) => {
-      // mettre la logique d'information d'erreur
-      console.log("erreur cat");
+      messageError.textContent = "Erreur dans l’identifiant ou le mot de passe";
+      console.log(error);
     });
 }
 
