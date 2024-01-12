@@ -1,6 +1,11 @@
 const gallery = document.querySelector(".gallery");
 const filter = document.querySelector(".filter");
+const loginLink = document.getElementById("login");
+const bannerEditor = document.querySelector(".editor");
+const body = document.querySelector("body");
+const modifyLink = document.querySelector(".my-projets p");
 let dataWorks = null;
+isConnect = false;
 
 /*fonction pour récupérer les projets*/
 async function getWorks() {
@@ -11,11 +16,20 @@ async function getWorks() {
 
 /*Affichage des nouveaux projets dans le dom*/
 async function main() {
+  if (window.localStorage.getItem("token")) {
+    isConnect = true;
+    loginLink.innerHTML = "logout";
+    loginLink.href = "index.html";
+    displayEditor();
+    loginLink.addEventListener("click", logout());
+  }
   const card = await getWorks();
   card.map((card) => {
     createCard(card);
   });
-  createCategorysButtons();
+  if (!isConnect) {
+    createCategorysButtons();
+  }
 }
 
 function createCard(card) {
@@ -37,6 +51,10 @@ async function getCategorys() {
 
 /*Affichage des catégories dans le dom*/
 async function createCategorysButtons() {
+  const btn = document.createElement("button");
+  btn.innerText = "Tous";
+  btn.id = 0;
+  filter.appendChild(btn);
   const category = await getCategorys();
   category.map((element) => {
     const btn = document.createElement("button");
@@ -50,7 +68,6 @@ async function createCategorysButtons() {
 /* Fonction pour filtrer les projets par catégoie*/
 async function filterByCategory() {
   const buttons = document.querySelectorAll(".filter button");
-  console.log(buttons);
   buttons.forEach((button) => {
     button.addEventListener("click", (e) => {
       btnId = e.target.id;
@@ -69,6 +86,16 @@ async function filterByCategory() {
       }
     });
   });
+}
+
+function logout() {
+  window.localStorage.removeItem("token");
+}
+
+function displayEditor() {
+  modifyLink.classList.remove("hidden-editor");
+  bannerEditor.classList.remove("hidden-editor");
+  body.classList.add("body-editor");
 }
 
 main();

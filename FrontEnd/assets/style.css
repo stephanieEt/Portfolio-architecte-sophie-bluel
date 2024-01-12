@@ -137,6 +137,29 @@ body {
   font-family: "Work Sans";
   font-size: 14px;
 }
+.editor {
+  height: 50px;
+  color: white;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Work Sans";
+  font-size: 16px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.body-editor {
+  margin-top: 90px;
+}
+
+.hidden-editor {
+  display: none;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -208,6 +231,16 @@ li:hover {
 #portfolio h2 {
   text-align: center;
   margin-bottom: 1em;
+}
+
+.my-projets a {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.my-projets p {
+  margin-left: 30px;
 }
 
 /*Ajout des filtres pour afficher les travaux par catégorie*/

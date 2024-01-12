@@ -2,7 +2,7 @@ const form = document.querySelector("form");
 const email = document.querySelector("form #email");
 const password = document.querySelector("form #pass");
 const messageError = document.querySelector("#connection p");
-let tokenId;
+let token;
 
 /*Fonction pour récupérer les users*/
 
@@ -21,17 +21,16 @@ async function recoverUsers(email, password) {
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error("erreur th");
+        throw new Error("Error authentification");
       }
     })
     .then((data) => {
-      tokenId = data.token;
-      window.localStorage.setItem("token", tokenId);
+      token = data.token;
+      window.localStorage.setItem("token", token);
       window.location.href = "index.html";
     })
     .catch((error) => {
       messageError.textContent = "Erreur dans l’identifiant ou le mot de passe";
-      console.log(error);
     });
 }
 

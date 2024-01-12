@@ -11,3 +11,7 @@
   color: black;
   text-decoration: underline;
 }
+
+nav ul li span {
+  font-weight: 600;
+}
