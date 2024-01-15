@@ -11,15 +11,16 @@
 		rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="modal.css">
 	<script src="script.js" defer></script>
+
 </head>
 
 <body>
 	<div class="editor hidden-editor">
 		<div>
 			<p>
-				<img class="mode-edition" src="assets/icons/black_modif.png"
-					alt=" icon indiquant se situer sur la page de modification">
+				<img src="assets/icons/black_modif.png" alt=" icon indiquant se situer sur la page de modification">
 				Mode edition
 			</p>
 		</div>
@@ -53,16 +54,25 @@
 		</section>
 		<section id="portfolio">
 			<div class="my-projets">
-				<a href="">
-					<h2>Mes Projets</h2>
-					<p class="hidden-editor">
+
+				<h2>Mes Projets</h2>
+				<a href="#modal1">
+
+					<p id=myModal class="hidden-editor">
 						<img class="mode-edition" src="assets/icons/modifier.svg"
 							alt=" icon indiquant se situer sur la page de modification">
-						Mode edition
+						modifier
 					</p>
 				</a>
 			</div>
-
+			<div id="modal" class="modal1">
+				<div class="modal-wrapper">
+					<span><img class=xmark src="assets/icons/croix.png" alt="sortie de la modale"></span>
+					<h1>Galerie photo</h1>
+					<div class="galleryPicture"></div>
+					<button>Ajouter une photo</button>
+				</div>
+			</div>
 			<div class="filter">
 			</div>
 			<div class="gallery">
@@ -90,6 +100,7 @@
 			</ul>
 		</nav>
 	</footer>
+
 </body>
 
 </html>

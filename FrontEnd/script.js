@@ -99,3 +99,22 @@ function displayEditor() {
 }
 
 main();
+
+/*Ajout de la modale*/
+const modal = document.getElementById("myModal");
+const modal1 = document.querySelector(".modal1");
+const xmark = document.querySelector(".modal-wrapper .xmark");
+
+modal.addEventListener("click", () => {
+  modal1.style.display = "flex";
+});
+xmark.addEventListener("click", () => {
+  modal1.style.display = "none";
+});
+modal1.addEventListener("click", (e) => {
+  if (e.target.className == "modal1") {
+    modal1.style.display = "none";
+  }
+});
+
+/*Mettre les images dans la galerie photo*/

@@ -232,11 +232,12 @@ li:hover {
   text-align: center;
   margin-bottom: 1em;
 }
-
-.my-projets a {
+.my-projets {
   display: flex;
   justify-content: center;
-  align-items: baseline;
+}
+.my-projets a {
+  padding-top: 7px;
 }
 
 .my-projets p {
