@@ -1,25 +1,36 @@
 const gallery = document.querySelector(".gallery");
 const filter = document.querySelector(".filter");
-let liste = [];
-
-/*mettre à jour l'affichage*/
-gallery.innerHTML = "";
+const loginLink = document.getElementById("login");
+const bannerEditor = document.querySelector(".editor");
+const body = document.querySelector("body");
+const modifyLink = document.querySelector(".my-projets p");
+let dataWorks = null;
+isConnect = false;
 
 /*fonction pour récupérer les projets*/
-async function init() {
+async function getWorks() {
   const response = await fetch("http://localhost:5678/api/works");
-  return await response.json();
+  dataWorks = await response.json();
+  return dataWorks;
 }
-init();
 
 /*Affichage des nouveaux projets dans le dom*/
-async function displayProjects() {
-  const card = await init();
+async function main() {
+  if (window.localStorage.getItem("token")) {
+    isConnect = true;
+    loginLink.innerHTML = "logout";
+    loginLink.href = "index.html";
+    displayEditor();
+    loginLink.addEventListener("click", logout());
+  }
+  const card = await getWorks();
   card.map((card) => {
     createCard(card);
   });
+  if (!isConnect) {
+    createCategorysButtons();
+  }
 }
-displayProjects();
 
 function createCard(card) {
   const figure = document.createElement("figure");
@@ -33,15 +44,17 @@ function createCard(card) {
 }
 
 /*Fonction pour récupérer les catégories*/
-
 async function getCategorys() {
   const response = await fetch("http://localhost:5678/api/categories");
   return await response.json();
 }
-getCategorys();
 
 /*Affichage des catégories dans le dom*/
 async function createCategorysButtons() {
+  const btn = document.createElement("button");
+  btn.innerText = "Tous";
+  btn.id = 0;
+  filter.appendChild(btn);
   const category = await getCategorys();
   category.map((element) => {
     const btn = document.createElement("button");
@@ -49,30 +62,40 @@ async function createCategorysButtons() {
     btn.id = element.id;
     filter.appendChild(btn);
   });
+  filterByCategory();
 }
-createCategorysButtons();
 
 /* Fonction pour filtrer les projets par catégoie*/
-async function filterCategory() {
-  const project = await init();
-  console.log(project);
+async function filterByCategory() {
   const buttons = document.querySelectorAll(".filter button");
-  console.log(buttons);
   buttons.forEach((button) => {
     button.addEventListener("click", (e) => {
       btnId = e.target.id;
       gallery.innerHTML = "";
       if (btnId !== "0") {
-        const differentsCategory = project.filter((card) => {
+        const differentsCategory = dataWorks.filter((card) => {
           return card.categoryId == btnId;
         });
-        differentsCategory.forEach((card) => {
+        differentsCategory.map((card) => {
           createCard(card);
         });
       } else {
-        displayProjects();
+        dataWorks.map((card) => {
+          createCard(card);
+        });
       }
     });
   });
 }
-filterCategory();
+
+function logout() {
+  window.localStorage.removeItem("token");
+}
+
+function displayEditor() {
+  modifyLink.classList.remove("hidden-editor");
+  bannerEditor.classList.remove("hidden-editor");
+  body.classList.add("body-editor");
+}
+
+main();
