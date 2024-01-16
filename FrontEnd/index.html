@@ -7,13 +7,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<script script src="https://kit.fontawesome.com/32996e856f.js" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="modal.css">
-	<script src="script.js" defer></script>
-
+	<script type='module' src="script.js" defer></script>
+	<script type='module' src="modal.js" defer></script>
 </head>
 
 <body>
@@ -54,10 +55,8 @@
 		</section>
 		<section id="portfolio">
 			<div class="my-projets">
-
 				<h2>Mes Projets</h2>
-				<a href="#modal1">
-
+				<a href="#modal">
 					<p id=myModal class="hidden-editor">
 						<img class="mode-edition" src="assets/icons/modifier.svg"
 							alt=" icon indiquant se situer sur la page de modification">
@@ -65,18 +64,8 @@
 					</p>
 				</a>
 			</div>
-			<div id="modal" class="modal1">
-				<div class="modal-wrapper">
-					<span><img class=xmark src="assets/icons/croix.png" alt="sortie de la modale"></span>
-					<h1>Galerie photo</h1>
-					<div class="galleryPicture"></div>
-					<button>Ajouter une photo</button>
-				</div>
-			</div>
-			<div class="filter">
-			</div>
-			<div class="gallery">
-			</div>
+			<div class="filter"></div>
+			<div class="gallery"></div>
 		</section>
 		<section id="contact">
 			<h2>Contact</h2>
@@ -100,6 +89,19 @@
 			</ul>
 		</nav>
 	</footer>
+
+
+	<!-- Modal -->
+	<div id="modal" class="modal1">
+		<div class="modal-wrapper">
+			<span><img class=xmark src="assets/icons/croix.png" alt="sortie de la modale"></span>
+			<h1>Galerie photo</h1>
+			<div class="galleryPicture">
+
+			</div>
+			<button>Ajouter une photo</button>
+		</div>
+	</div>
 
 </body>
 
