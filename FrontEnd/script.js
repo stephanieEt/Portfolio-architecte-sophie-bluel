@@ -4,8 +4,10 @@ const loginLink = document.getElementById("login");
 const bannerEditor = document.querySelector(".editor");
 const body = document.querySelector("body");
 const modifyLink = document.querySelector(".my-projets p");
+
 let dataWorks = null;
 let isConnect = false;
+let btnId = "";
 
 /*fonction pour récupérer les projets*/
 async function getWorks() {
@@ -21,7 +23,7 @@ async function main() {
     loginLink.innerHTML = "logout";
     loginLink.href = "index.html";
     displayEditor();
-    loginLink.addEventListener("click", logout());
+    loginLink.addEventListener("click", logout);
   }
   const card = await getWorks();
   card.map((card) => {
@@ -33,6 +35,7 @@ async function main() {
   displayGalleryPicture();
 }
 
+// Création d'UNE image
 function createCard(card) {
   const figure = document.createElement("figure");
   const img = document.createElement("img");
@@ -133,53 +136,33 @@ async function displayGalleryPicture() {
     cards.appendChild(trash);
     cards.appendChild(img);
     galleryPicture.appendChild(cards);
-    console.log(works);
   });
-  /*deleteGalleryPicture();*/
+  deleteGalleryPicture();
 }
 
 /*Suppression d'une image de la modal*/
-/*function deleteGalleryPicture() {
+function deleteGalleryPicture() {
   const trashAll = document.querySelectorAll(".fa-trash-can");
-  trashAll.map(trash => {
-    trash.addEventListener("click",(e) =>{
-      const id = trash.id
-      const init ={
-        method:"DELETE",
-        headers:{"content-type":"application/json"},
+  trashAll.forEach((trash) => {
+    trash.addEventListener("click", (e) => {
+      const id = trash.id;
+      fetch("http://localhost:5678/api/works/" + id, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      }).then((response) => {
+        if (response.ok) {
+          dataWorks = dataWorks.filter((card) => {
+            return card.id != id;
+          });
+          gallery.innerHTML = "";
+          displayGalleryPicture();
+          dataWorks.map((card) => {
+            createCard(card);
+          });
         }
-      fetch("http://localhost:5678/api/works/1/" +id,init)
-
-    })
-  })
-}*/
-
-/*async function displayGalleryPicture() {
-  galleryPicture.innerHTML = "";
-  const pictures = await getWorks();
-  pictures.map((works) => {
-    const div = document.createElement("div");
-    const button = document.createElement("button");
-    const img = document.createElement("img");
-
-    const icon = document.createElement("img");
-
-    img.src = works.imageUrl;
-    img.alt = works.title;
-    img.crossOrigin = "anonymous";
-
-    icon.src = "./assets/icons/trash-can-solid.png";
-    icon.crossOrigin = "anonymous";
-    icon.className = "deleteBtn";
-    button.className = "btnIcon";
-    div.className = "card";
-    div.id = works.id;
-
-    button.appendChild(icon);
-    div.appendChild(img);
-    div.appendChild(button);
-
-    galleryPicture.appendChild(div);
+      });
+    });
   });
 }
-displayGalleryPicture();*/
