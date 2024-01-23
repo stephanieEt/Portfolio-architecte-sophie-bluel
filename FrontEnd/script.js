@@ -109,9 +109,12 @@ const modal = document.getElementById("myModal");
 const modal1 = document.querySelector(".modal1");
 const xmark = document.querySelector(".modal-wrapper .xmark");
 const galleryPicture = document.querySelector(".galleryPicture");
+const contentModalImg = document.getElementById("contentModalImg");
+const newModal = document.getElementById("new-elements");
 
 modal.addEventListener("click", () => {
   modal1.style.display = "flex";
+  contentModalImg.style.display = "contents";
 });
 xmark.addEventListener("click", () => {
   modal1.style.display = "none";
@@ -120,6 +123,23 @@ modal1.addEventListener("click", (e) => {
   if (e.target.className == "modal1") {
     modal1.style.display = "none";
   }
+});
+
+/*Ajout de la modal 2*/
+const btnAddPicture = document.getElementById("btnAddPicture");
+
+btnAddPicture.addEventListener("click", displayAddPicture);
+
+function displayAddPicture() {
+  contentModalImg.style.display = "none";
+  newModal.style.display = "flex";
+}
+
+/*Evénement en appuyant sur la flèche retour pour retourner sur modal principal*/
+const arrowLeft = document.querySelector(".close-icon");
+arrowLeft.addEventListener("click", () => {
+  contentModalImg.style.display = "flex";
+  newModal.style.display = "none";
 });
 
 /*Mettre les images dans la galerie photo*/
@@ -161,6 +181,9 @@ function deleteGalleryPicture() {
           dataWorks.map((card) => {
             createCard(card);
           });
+        } else {
+          window.localStorage.removeItem("token");
+          window.location.href = "index.html";
         }
       });
     });
