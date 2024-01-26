@@ -23,6 +23,7 @@ async function main() {
     loginLink.innerHTML = "logout";
     loginLink.href = "index.html";
     displayEditor();
+    setDataForCategory();
     loginLink.addEventListener("click", logout);
   }
   const card = await getWorks();
@@ -66,10 +67,11 @@ async function createCategorysButtons() {
     btn.id = element.id;
     filter.appendChild(btn);
   });
+
   filterByCategory();
 }
 
-/* Fonction pour filtrer les projets par catégoie*/
+/* Fonction pour filtrer les projets par catégorie*/
 async function filterByCategory() {
   const buttons = document.querySelectorAll(".filter button");
   buttons.forEach((button) => {
@@ -118,6 +120,7 @@ modal.addEventListener("click", () => {
 });
 xmark.addEventListener("click", () => {
   modal1.style.display = "none";
+  newModal.style.display = "none";
 });
 modal1.addEventListener("click", (e) => {
   if (e.target.className == "modal1") {
@@ -140,6 +143,11 @@ const arrowLeft = document.querySelector(".close-icon");
 arrowLeft.addEventListener("click", () => {
   contentModalImg.style.display = "flex";
   newModal.style.display = "none";
+});
+modal1.addEventListener("click", (e) => {
+  if (e.target.className == "modal1") {
+    newModal.style.display = "none";
+  }
 });
 
 /*Mettre les images dans la galerie photo*/
@@ -187,5 +195,61 @@ function deleteGalleryPicture() {
         }
       });
     });
+  });
+}
+
+/*Étape 3.3 : Envoi d’un nouveau projet au back-end via le formulaire de la modale*/
+
+const file = document.getElementById("photo-addition-button");
+const title = document.getElementById("title-input");
+const category = document.getElementById("category-input");
+const validation = document.getElementById("send-validation");
+
+title.addEventListener("input", controlForm);
+file.addEventListener("input", controlForm);
+category.addEventListener("input", controlForm);
+
+// fonction qui passe le bouton Valider en vert si tous les champs sont remplis
+function controlForm() {
+  if (title.checkValidity() && validateFileUpload(file)) {
+    validation.classList.add("valid");
+  }
+}
+
+// validation du fichier image
+function validateFileUpload(inputElement) {
+  const fileName = inputElement.value;
+  const allowedExtensions = ["jpg", "png"];
+  const fileExtension = fileName.split(".").pop();
+  let valid = false;
+  allowedExtensions.map((extention) => {
+    if (extention === fileExtension) {
+      valid = true;
+    }
+  });
+  return valid;
+}
+
+/* blob preview Image*/
+const containerAvatar = document.getElementById("photo-add");
+const avatar = document.getElementById("avatar");
+function imagePreview(e) {
+  const blob = new Blob([e.files[0]], { type: "image/jpeg" });
+  const blobURL = URL.createObjectURL(blob);
+  containerAvatar.innerHTML = "";
+  const img = document.createElement("img");
+  img.src = blobURL;
+  containerAvatar.appendChild(img);
+}
+
+// Créer les options categorie du select de la modal
+async function setDataForCategory() {
+  const categoryInput = document.getElementById("category-input");
+  const category = await getCategorys();
+  category.map((element) => {
+    const option = document.createElement("option");
+    option.innerHTML = element.name;
+    option.id = element.id;
+    categoryInput.appendChild(option);
   });
 }
