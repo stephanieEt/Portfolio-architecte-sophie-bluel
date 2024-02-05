@@ -8,6 +8,9 @@ const modifyLink = document.querySelector(".my-projets p");
 let dataWorks = null;
 let isConnect = false;
 let btnId = "";
+let inputTxt;
+let select;
+let imgInput;
 
 /*fonction pour récupérer les projets*/
 async function getWorks() {
@@ -230,11 +233,13 @@ function validateFileUpload(inputElement) {
   return valid;
 }
 
+let blob = null;
+
 /* blob preview Image*/
 const containerAvatar = document.getElementById("photo-add");
 const avatar = document.getElementById("avatar");
 function imagePreview(e) {
-  const blob = new Blob([e.files[0]], { type: "image/jpeg" });
+  blob = new Blob([e.files[0]], { type: "image/jpeg" });
   const blobURL = URL.createObjectURL(blob);
   containerAvatar.innerHTML = "";
   const img = document.createElement("img");
@@ -250,6 +255,26 @@ async function setDataForCategory() {
     const option = document.createElement("option");
     option.innerHTML = element.name;
     option.id = element.id;
+    option.value = element.id;
     categoryInput.appendChild(option);
   });
 }
+
+const formAddWork = document.querySelector("#change");
+formAddWork.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const token = localStorage.getItem("token"); // Récupère le token depuis le local storage
+  const formData = new FormData(formAddWork);
+
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {});
+});

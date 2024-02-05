@@ -113,13 +113,13 @@
 						<div id=photo-add>
 							<img class="photo-addition-icon" id="avatar" src="assets/icons/picture-svgrepo-com 1.png"
 								alt="icône d'ajout photo">
-							<label for="photo-addition-button" class="custom-file-upload">
+							<label for="photo-addition-button" class="custom-file-upload" id="label-img">
 								+ Ajouter photo
 							</label>
-							<input type="file" value="+ Ajouter photo" onchange="imagePreview(this)" name="avatar"
-								accept="image/png, image/jpeg" id="photo-addition-button" />
 							<p class="photo-addition-stats">jpg, png : 4mo max</p>
 						</div>
+						<input type="file" name="image" accept="image/png, image/jpeg" id="photo-addition-button"
+							class="form-input" onchange="imagePreview(this)" required>
 						<p class="title-category">
 							<label class="form-title" for="title">Titre</label>
 							<input id="title-input" class="form-input" type="text" name="title" minlength="3" required>
@@ -131,7 +131,7 @@
 						</p>
 						<div class="line"></div>
 						<p>
-							<input type="submit" id="send-validation" value="Valider">
+							<button type="submit" id="send-validation">Valider</button>
 						</p>
 					</form>
 				</div>
