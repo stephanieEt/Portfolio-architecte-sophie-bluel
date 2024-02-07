@@ -6,8 +6,8 @@ let token;
 
 /*Fonction pour récupérer les users*/
 
-async function recoverUsers(email, password) {
-  await fetch("http://localhost:5678/api/users/login", {
+function recoverUsers(email, password) {
+  fetch("http://localhost:5678/api/users/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
