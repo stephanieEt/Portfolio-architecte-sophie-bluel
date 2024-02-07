@@ -117,9 +117,11 @@
 								+ Ajouter photo
 							</label>
 							<p class="photo-addition-stats">jpg, png : 4mo max</p>
+							<div class="container-new-image"></div>
 						</div>
 						<input type="file" name="image" accept="image/png, image/jpeg" id="photo-addition-button"
-							class="form-input" onchange="imagePreview(this)" required>
+							class="form-input" onchange="imagePreview(this)">
+
 						<p class="title-category">
 							<label class="form-title" for="title">Titre</label>
 							<input id="title-input" class="form-input" type="text" name="title" minlength="3" required>
@@ -130,6 +132,7 @@
 							</select>
 						</p>
 						<div class="line"></div>
+						<p id="addError"></p>
 						<p>
 							<button type="submit" id="send-validation">Valider</button>
 						</p>
