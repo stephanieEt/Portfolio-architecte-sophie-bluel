@@ -7,10 +7,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<script script src="https://kit.fontawesome.com/32996e856f.js" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="modal.css">
 	<script src="script.js" defer></script>
 </head>
 
@@ -18,8 +20,7 @@
 	<div class="editor hidden-editor">
 		<div>
 			<p>
-				<img class="mode-edition" src="assets/icons/black_modif.png"
-					alt=" icon indiquant se situer sur la page de modification">
+				<img src="assets/icons/black_modif.png" alt=" icon indiquant se situer sur la page de modification">
 				Mode edition
 			</p>
 		</div>
@@ -53,20 +54,17 @@
 		</section>
 		<section id="portfolio">
 			<div class="my-projets">
-				<a href="">
-					<h2>Mes Projets</h2>
-					<p class="hidden-editor">
+				<h2>Mes Projets</h2>
+				<a href="#modal">
+					<p id=myModal class="hidden-editor">
 						<img class="mode-edition" src="assets/icons/modifier.svg"
 							alt=" icon indiquant se situer sur la page de modification">
-						Mode edition
+						modifier
 					</p>
 				</a>
 			</div>
-
-			<div class="filter">
-			</div>
-			<div class="gallery">
-			</div>
+			<div class="filter"></div>
+			<div class="gallery"></div>
 		</section>
 		<section id="contact">
 			<h2>Contact</h2>
@@ -90,6 +88,61 @@
 			</ul>
 		</nav>
 	</footer>
+
+
+	<!-- Modal -->
+	<aside id="modal" class="modal1">
+		<div class="modal-wrapper">
+			<span><img class=xmark src="assets/icons/croix.png" alt="sortie de la modale"></span>
+			<div id="contentModalImg">
+				<h1>Galerie photo</h1>
+				<div class="galleryPicture">
+				</div>
+				<div class="line"></div>
+				<button id="btnAddPicture">Ajouter une photo</button>
+
+			</div>
+
+
+			<!--Modal 2-->
+			<div id="new-elements">
+				<i class="fa-solid fa-arrow-left close-icon"></i>
+				<div class="new-elements-display">
+					<h2 id="titlemodal" class="modal-name">Ajout photo</h2>
+					<form id="change">
+						<div id=photo-add>
+							<img class="photo-addition-icon" id="avatar" src="assets/icons/picture-svgrepo-com 1.png"
+								alt="icône d'ajout photo">
+							<label for="photo-addition-button" class="custom-file-upload" id="label-img">
+								+ Ajouter photo
+							</label>
+							<p class="photo-addition-stats">jpg, png : 4mo max</p>
+							<div class="container-new-image"></div>
+						</div>
+						<input type="file" name="image" accept="image/png, image/jpeg" id="photo-addition-button"
+							class="form-input" onchange="imagePreview(this)">
+
+						<p class="title-category">
+							<label class="form-title" for="title">Titre</label>
+							<input id="title-input" class="form-input" type="text" name="title" minlength="3" required>
+						</p>
+						<p class="title-category">
+							<label class="form-category" for="category">Catégorie</label>
+							<select id="category-input" class="form-input" name="category" required>
+							</select>
+						</p>
+						<div class="line"></div>
+						<p id="addError"></p>
+						<p>
+							<button type="submit" id="send-validation">Valider</button>
+						</p>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</aside>
+
 </body>
 
 </html>
