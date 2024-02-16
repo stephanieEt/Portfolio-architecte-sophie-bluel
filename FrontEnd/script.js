@@ -297,6 +297,7 @@ formAddWork.addEventListener("submit", (e) => {
     body: formData,
   })
     .then((res) => {
+      validation.classList.remove("valid");
       if (res.ok) {
         return res.json();
       } else {

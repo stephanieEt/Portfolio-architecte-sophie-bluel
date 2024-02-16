@@ -30,14 +30,14 @@
   right: 20px;
   cursor: pointer;
 }
-.modal-wrapper h1 {
+.modal-wrapper h2 {
   color: #000;
   font-family: "Work Sans";
   font-size: 26px;
   font-style: normal;
   font-weight: 400;
   position: absolute;
-  margin-top: 22px;
+  margin-top: 29px;
 }
 #contentModalImg {
   display: flex;
