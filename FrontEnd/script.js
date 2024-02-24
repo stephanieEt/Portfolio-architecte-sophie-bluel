@@ -19,7 +19,7 @@ async function getWorks() {
   return dataWorks;
 }
 
-/*Fonction pricipale qui gère le rendu html*/
+/*Fonction principale qui gère le rendu html*/
 async function main() {
   if (window.localStorage.getItem("token")) {
     isConnect = true;
@@ -153,7 +153,7 @@ function displayAddPicture() {
   newModal.style.display = "flex";
 }
 
-/*Evénement en appuyant sur la flèche retour pour retourner sur modal principal*/
+/*Evénement en appuyant sur la flèche retour pour retourner sur modal principale*/
 const arrowLeft = document.querySelector(".close-icon");
 arrowLeft.addEventListener("click", () => {
   contentModalImg.style.display = "flex";
@@ -208,7 +208,7 @@ function deleteGalleryPicture() {
   });
 }
 
-/*Étape 3.3 : Envoi d’un nouveau projet au back-end via le formulaire de la modale*/
+/*Étape 3.3 : Envoi d’un nouveau projet au back-end via le formulaire de la modal*/
 
 const file = document.getElementById("photo-addition-button");
 const title = document.getElementById("title-input");
@@ -220,7 +220,7 @@ title.addEventListener("input", controlForm);
 file.addEventListener("input", controlForm);
 category.addEventListener("input", controlForm);
 
-// fonction qui passe le bouton Valider en vert si tous les champs sont remplis
+/* fonction qui passe le bouton Valider en vert si tous les champs sont remplis*/
 function controlForm() {
   if (validateFileUpload(file) && title.checkValidity()) {
     validation.classList.add("valid");
@@ -231,7 +231,7 @@ function controlForm() {
   return false;
 }
 
-// validation du fichier image
+/*validation du fichier image*/
 function validateFileUpload(inputElement) {
   const fileName = inputElement.value;
   const allowedExtensions = ["jpg", "png"];
@@ -247,14 +247,14 @@ function validateFileUpload(inputElement) {
         valid = true;
       } else {
         addError.style.display = "flex";
-        addError.textContent = "image plus de 4 mo";
+        addError.textContent = "La photo doit être inférieure à 4 Mo";
       }
     }
   });
 
   if (file.value.length !== 0 && isOtherExtention) {
     addError.style.display = "flex";
-    addError.textContent = "Votre imge doit etre de type png ou jpg";
+    addError.textContent = "Votre image doit être de type png ou jpg";
   }
   return valid;
 }
@@ -281,7 +281,7 @@ function imagePreview(e) {
   }
 }
 
-// Créer les options categorie du select de la modal
+/* Créer les options categories du select de la modal*/
 async function setDataForCategory() {
   const categoryInput = document.getElementById("category-input");
   categoryInput.innerHTML = "";
@@ -340,6 +340,6 @@ formAddWork.addEventListener("submit", (e) => {
   if (file.value.length === 0) {
     // ajouter un message d'erreur au niveau du formulaire html
     addError.style.display = "flex";
-    addError.textContent = "image manquante";
+    addError.textContent = "Veuillez ajouter une photo";
   }
 });
