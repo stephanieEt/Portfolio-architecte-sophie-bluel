@@ -88,6 +88,7 @@ async function createCategorysButtons() {
 /* Fonction pour filtrer les works par catégorie*/
 async function filterByCategory() {
   const buttons = document.querySelectorAll(".filter button");
+  console.log(buttons);
   buttons.forEach((button) => {
     button.addEventListener("click", (e) => {
       btnId = e.target.id;
@@ -213,6 +214,7 @@ const file = document.getElementById("photo-addition-button");
 const title = document.getElementById("title-input");
 const category = document.getElementById("category-input");
 const validation = document.getElementById("send-validation");
+const addError = document.querySelector("#addError");
 
 title.addEventListener("input", controlForm);
 file.addEventListener("input", controlForm);
@@ -220,9 +222,13 @@ category.addEventListener("input", controlForm);
 
 // fonction qui passe le bouton Valider en vert si tous les champs sont remplis
 function controlForm() {
-  if (title.checkValidity() && validateFileUpload(file)) {
+  if (validateFileUpload(file) && title.checkValidity()) {
     validation.classList.add("valid");
+    return true;
   }
+
+  validation.classList.remove("valid");
+  return false;
 }
 
 // validation du fichier image
@@ -231,11 +237,25 @@ function validateFileUpload(inputElement) {
   const allowedExtensions = ["jpg", "png"];
   const fileExtension = fileName.split(".").pop();
   let valid = false;
+  addError.style.display = "none";
+  let isOtherExtention = true;
+
   allowedExtensions.map((extention) => {
     if (extention === fileExtension) {
-      valid = true;
+      isOtherExtention = false;
+      if (inputElement.files[0].size < 4194304) {
+        valid = true;
+      } else {
+        addError.style.display = "flex";
+        addError.textContent = "image plus de 4 mo";
+      }
     }
   });
+
+  if (file.value.length !== 0 && isOtherExtention) {
+    addError.style.display = "flex";
+    addError.textContent = "Votre imge doit etre de type png ou jpg";
+  }
   return valid;
 }
 
@@ -249,16 +269,16 @@ const photoAdditionStats = document.querySelector(".photo-addition-stats");
 const containerNewImg = document.querySelector(".container-new-image");
 
 function imagePreview(e) {
-  blob = new Blob([e.files[0]], { type: "image/jpeg" });
-  const blobURL = URL.createObjectURL(blob);
-  photoAdditionIcon.style.display = "none";
-  customFileUpload.style.display = "none";
-  photoAdditionStats.style.display = "none";
-
-  const img = document.createElement("img");
-  img.src = blobURL;
-
-  containerNewImg.appendChild(img);
+  if (validateFileUpload(e)) {
+    blob = new Blob([e.files[0]], { type: "image/jpeg" });
+    const blobURL = URL.createObjectURL(blob);
+    photoAdditionIcon.style.display = "none";
+    customFileUpload.style.display = "none";
+    photoAdditionStats.style.display = "none";
+    const img = document.createElement("img");
+    img.src = blobURL;
+    containerNewImg.appendChild(img);
+  }
 }
 
 // Créer les options categorie du select de la modal
@@ -282,36 +302,44 @@ function resetForm() {
   customFileUpload.style.display = "flex";
   photoAdditionStats.style.display = "flex";
   containerNewImg.innerHTML = "";
+  addError.style.display = "none";
 }
 
 formAddWork.addEventListener("submit", (e) => {
   e.preventDefault();
-  const token = localStorage.getItem("token"); // Récupère le token depuis le local storage
-  const formData = new FormData(formAddWork);
+  if (controlForm()) {
+    const token = localStorage.getItem("token"); // Récupère le token depuis le local storage
+    const formData = new FormData(formAddWork);
 
-  fetch("http://localhost:5678/api/works", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    body: formData,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        throw new Error("Error send new work");
-      }
+    fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
     })
-    .then((data) => {
-      resetForm();
-      dataWorks.push(data);
-      refrech();
-    })
-    .catch((error) => {
-      // ajouter un message d'erreur au niveau du formulaire html
-
-      const addError = document.querySelector("#addError");
-      addError.textContent = "Erreur lors de l'ajout du travail";
-    });
+      .then((res) => {
+        validation.classList.remove("valid");
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Error send new work");
+        }
+      })
+      .then((data) => {
+        resetForm();
+        dataWorks.push(data);
+        refrech();
+      })
+      .catch((error) => {
+        // ajouter un message d'erreur au niveau du formulaire html
+        addError.style.display = "flex";
+        addError.textContent = "Erreur lors de l'ajout du travail";
+      });
+  }
+  if (file.value.length === 0) {
+    // ajouter un message d'erreur au niveau du formulaire html
+    addError.style.display = "flex";
+    addError.textContent = "image manquante";
+  }
 });

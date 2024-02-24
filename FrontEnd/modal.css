@@ -30,14 +30,14 @@
   right: 20px;
   cursor: pointer;
 }
-.modal-wrapper h1 {
+.modal-wrapper h2 {
   color: #000;
   font-family: "Work Sans";
   font-size: 26px;
   font-style: normal;
   font-weight: 400;
   position: absolute;
-  margin-top: 22px;
+  margin-top: 29px;
 }
 #contentModalImg {
   display: flex;
@@ -62,13 +62,12 @@
   background-color: black;
   border-radius: 2px;
   width: 10px;
-  height: 12px;
   color: white;
-  bottom: 9vw;
-  left: 7vw;
+  bottom: 9.5vw;
+  left: 7.5vw;
   cursor: pointer;
   text-align: center;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .modal-wrapper button {
@@ -113,12 +112,21 @@
 
 .line {
   display: flex;
-  margin: 0 auto;
   border-top: 1px solid #b3b3b3;
-  width: 97%;
+  width: 87%;
   padding-bottom: 5px;
   margin-top: 43px;
   justify-content: center;
+  margin-left: 25px;
+}
+.line-bis {
+  display: flex;
+  border-top: 1px solid #b3b3b3;
+  width: 100%;
+  padding-bottom: 5px;
+  margin-top: 43px;
+  justify-content: center;
+  margin-left: 13px;
 }
 #send-validation {
   display: flex;
