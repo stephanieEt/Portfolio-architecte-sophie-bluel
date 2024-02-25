@@ -13,7 +13,7 @@ Compte de test pour Sophie Bluel
 ```
 email: sophie.bluel@test.tld
 
-password: node 
+password: S0phie 
 ```
 Lien pour voir la
 [documentation Swagger](http://localhost:5678/api-docs/)
