@@ -11,8 +11,8 @@
 }
 .modal-wrapper {
   overflow: auto;
-  width: 43vw;
-  height: 445px;
+  width: 36vw;
+  height: 510px;
   max-width: calc(100vw - 20px);
   max-height: calc(100vh - 20px);
   background-color: white;
@@ -53,7 +53,8 @@
   padding-top: 100px;
 }
 .galleryPicture img {
-  width: 8vw;
+  width: 129px;
+  height: 169px;
 }
 
 .fa-trash-can {
@@ -63,8 +64,8 @@
   border-radius: 2px;
   width: 10px;
   color: white;
-  bottom: 9.5vw;
-  left: 7.5vw;
+  top: -144px;
+  left: 80%;
   cursor: pointer;
   text-align: center;
   font-size: 12px;
@@ -94,14 +95,12 @@
 .close-icon {
   position: relative;
   cursor: pointer;
-  right: 54px;
-  bottom: 34px;
 }
 .new-elements-display {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 127px;
+  margin-bottom: 254px;
 }
 .modal-name {
   font-family: "Work Sans";
@@ -124,7 +123,7 @@
   border-top: 1px solid #b3b3b3;
   width: 100%;
   padding-bottom: 5px;
-  margin-top: 43px;
+  margin-top: 25px;
   justify-content: center;
   margin-left: 13px;
 }
@@ -156,7 +155,7 @@
   margin: 30px 0px;
   height: 180px;
   background-color: #e8f1f6;
-  gap: 13px;
+  gap: 10px;
 }
 #photo-add {
   display: flex;
@@ -183,6 +182,7 @@
 .photo-addition-icon {
   font-size: 58px;
 }
+
 .title-category {
   display: flex;
   flex-direction: column;
