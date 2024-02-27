@@ -278,6 +278,8 @@ function imagePreview(e) {
     const img = document.createElement("img");
     img.src = blobURL;
     containerNewImg.appendChild(img);
+    img.style.width = "129px";
+    img.style.height = "169px";
   }
 }
 
